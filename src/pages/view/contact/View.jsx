@@ -162,22 +162,56 @@ const View = ({ open, onClose, data }) => {
               fontSize: '0.875rem',
             }}
           >
-            <strong>Status:</strong> {data?.status || 'N/A'}
+            <strong>Location:</strong> {data?.location || 'N/A'}
           </Typography>
         </Box>
         <Divider sx={{ my: 2, borderColor: '#e0e0e0' }} />
+
         <Typography
-          variant="body1"
+          variant="body2"
           sx={{
-            color: '#202124',
+            color: '#5f6368',
             fontFamily: "'Roboto', sans-serif",
-            fontSize: '1rem',
-            lineHeight: 1.5,
-            whiteSpace: 'pre-wrap',
+            fontSize: '0.875rem',
           }}
         >
-          {data?.message || 'No message content available.'}
+          <strong>Course:</strong>{' '}
+          <Typography
+            component="a"
+            href={`tel:${data?.course}`}
+            sx={{
+              color: '#1a73e8',
+              textDecoration: 'none',
+              '&:hover': { textDecoration: 'underline' },
+            }}
+          >
+            {data?.course || 'N/A'}
+          </Typography>
         </Typography>
+
+        <Typography
+          variant="body2"
+          sx={{
+            color: '#5f6368',
+            fontFamily: "'Roboto', sans-serif",
+            fontSize: '0.875rem',
+          }}
+        >
+          <strong>College:</strong>{' '}
+          <Typography
+            component="a"
+            href={`tel:${data?.school}`}
+            sx={{
+              color: '#1a73e8',
+              textDecoration: 'none',
+              '&:hover': { textDecoration: 'underline' },
+            }}
+          >
+            {data?.school || 'N/A'}
+          </Typography>
+        </Typography>
+
+        
       </DialogContent>
     </Dialog>
   );

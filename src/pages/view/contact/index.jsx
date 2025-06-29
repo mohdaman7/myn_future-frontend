@@ -40,7 +40,7 @@ const Index = () => {
         pageSize: 5,
     });
 
-    const title = "Contact Messages";
+    const title = "Request Call";
 
     useEffect(() => {
         dispatch(getContacts());
@@ -89,15 +89,17 @@ const Index = () => {
                 const fullname = (item.fullname || '').toLowerCase();
                 const email = (item.email || '').toLowerCase();
                 const mobile = (item.mobile || '').toLowerCase();
-                const message = (item.message || '').toLowerCase();
-                const status = (item.status || '').toLowerCase();
+                const location = (item.location || '').toLowerCase();
+                const school = (item.school || '').toLowerCase();
+                const course = (item.course || '').toLowerCase();
                 const query = searchQuery.toLowerCase();
                 return (
                     fullname.includes(query) ||
                     mobile.includes(query) ||
                     email.includes(query) ||
-                    message.includes(query) ||
-                    status.includes(query)
+                    location.includes(query) ||
+                    school.includes(query) ||
+                    course.includes(query)
                 );
             })
             .map((item, index) => ({
@@ -108,30 +110,16 @@ const Index = () => {
 
     const columns = [
         { field: 'id', headerName: 'No', flex: 0.5 },
-        { field: 'fullname', headerName: 'Full Name', flex: 1 },
-        { field: 'mobile', headerName: 'Contact', flex: 1 },
-        { field: 'email', headerName: 'Email', width: 200 },
-        {
-            field: 'message',
-            headerName: 'Message',
-            flex: 2,
-            renderCell: (params) => (
-                <Box sx={{ whiteSpace: 'normal', wordWrap: 'break-word' }}>
-                    {params.value.length > 50 ? `${params.value.substring(0, 50)}...` : params.value}
-                </Box>
-            ),
-        },
-        { field: 'status', headerName: 'Status', flex: 1 },
-        {
-            field: 'createdAt',
-            headerName: 'Received',
-            flex: 1,
-            renderCell: (params) => FormatDate(params.value),
-        },
+        { field: 'fullname', headerName: 'Full Name', width: 140  },
+        { field: 'mobile', headerName: 'Contact', width: 140  },
+        { field: 'email', headerName: 'Email', width: 180 },
+        { field: 'course', headerName: 'course', flex:1 },
+        { field: 'school', headerName: 'school', flex:1 },
+        { field: 'location', headerName: 'Location', flex: 1 },
         {
             field: 'action',
             headerName: 'Actions',
-            width: 150,
+            width: 130,
             sortable: false,
             renderCell: (params) => (
                 <>

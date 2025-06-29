@@ -31,7 +31,7 @@ const enquiries = {
     },
     {
       id: 'contact',
-      title: 'Contacts',
+      title: 'Request Call',
       type: 'item',
       url: '/contact',
       icon: icons.Contacts
