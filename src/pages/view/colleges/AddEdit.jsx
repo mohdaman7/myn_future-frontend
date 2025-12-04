@@ -547,6 +547,15 @@ const validationSchema = Yup.object({
   image: Yup.mixed()
     .nullable()
     .test(
+      'fileSize',
+      'Image is too large. Maximum size is 2MB.',
+      value => {
+        if (!value) return true;
+        if (typeof value === 'string') return true;
+        return value.size <= 2 * 1024 * 1024; // 2MB
+      }
+    )
+    .test(
       'fileType',
       'Unsupported file format (only jpg, jpeg, png, gif allowed)',
       value => {
@@ -945,12 +954,22 @@ const AddEdit = ({ open, onClose, onSubmit, editData }) => {
                       accept="image/*"
                       onChange={(event) => {
                         const file = event.currentTarget.files?.[0];
-                        setFieldValue('image', file || null);
+
                         if (file) {
+                          // size check: 2MB
+                          if (file.size > 2 * 1024 * 1024) {
+                            toast.error('Image is too large. Maximum size is 2MB. Please upload a smaller image.');
+                            setFieldValue('image', null);
+                            setPreviewImage(null);
+                            return;
+                          }
+
+                          setFieldValue('image', file || null);
                           const reader = new FileReader();
                           reader.onloadend = () => setPreviewImage(reader.result);
                           reader.readAsDataURL(file);
                         } else {
+                          setFieldValue('image', null);
                           setPreviewImage(null);
                         }
                       }}
