@@ -879,7 +879,7 @@ const AddEdit = ({ open, onClose, onSubmit, editData }) => {
                       if (e.key === 'Enter') {
                         e.preventDefault();
                         const newItem = inputFacilities.trim();
-                        if (newItem && !values.facilities.includes(newItem)) {
+                        if (newItem && !(values.facilities || []).includes(newItem)) {
                           setFieldValue('facilities', [...(values.facilities || []), newItem]);
                           setInputFacilities('');
                         } else if (newItem) {
@@ -916,7 +916,7 @@ const AddEdit = ({ open, onClose, onSubmit, editData }) => {
                       if (e.key === 'Enter') {
                         e.preventDefault();
                         const newItem = inputServices.trim();
-                        if (newItem && !values.services.includes(newItem)) {
+                        if (newItem && !(values.services || []).includes(newItem)) {
                           setFieldValue('services', [...(values.services || []), newItem]);
                           setInputServices('');
                         } else if (newItem) {
@@ -980,6 +980,14 @@ const AddEdit = ({ open, onClose, onSubmit, editData }) => {
                         borderRadius: '4px',
                       }}
                     />
+                    {/* 👇 Professional helper text about size & formats */}
+                    <Typography
+                      variant="caption"
+                      sx={{ mt: 0.5, display: 'block', color: 'text.secondary' }}
+                    >
+                      Supported formats: JPG, JPEG, PNG, GIF. Maximum file size: 2MB.
+                    </Typography>
+
                     {touched.image && errors.image && (
                       <Typography color="error" variant="caption">
                         {errors.image}
